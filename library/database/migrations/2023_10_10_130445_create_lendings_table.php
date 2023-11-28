@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignId('copy_id')->references('copy_id')->on('copies');
             //mai dátum év megfelelője
             $table->date('start')->default(now());
+            $table->date('end')->nullable()->default(null);
+            $table->boolean('extension')->default(0);
+            $table->integer('notice')->default(0);
             $table->primary(['user_id', 'copy_id', 'start']);
             $table->timestamps();
         });

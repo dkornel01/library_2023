@@ -12,7 +12,10 @@ class Lending extends Model
     protected $fillable = [
         'user_id',
         'copy_id',
-        'start'
+        'start',
+        'end',
+        'extenxion',
+        'notice'
     ];
 
     protected function setKeysForSaveQuery($query)
@@ -28,6 +31,7 @@ class Lending extends Model
         //kapcsolat, osztály, ott hogy hívják, itt hogy hívják
     {    return $this->belongsTo(User::class, 'id', 'user_id');   }
 
+   
     public function userHas()
         //kapcsolat, osztály, ott hogy hívják, itt hogy hívják
     {    return $this->hasOne(User::class, 'id', 'user_id');   }

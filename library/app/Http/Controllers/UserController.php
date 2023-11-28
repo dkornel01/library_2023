@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,7 +20,6 @@ class UserController extends Controller
 
     public function destroy($id){
         User::find($id)->delete();
-        
     }
 
     public function update(Request $request, $id){
@@ -31,7 +31,6 @@ class UserController extends Controller
         $user->save();
         
     }
-
     public function updatePassword(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -47,8 +46,6 @@ class UserController extends Controller
         ]);
         return response()->json(["user" => $user]);
     }
-
-
     public function store(Request $request){
         $user = new User();
         $user->name = $request->name;
@@ -56,5 +53,10 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->permission = $request->permission;
         $user->save();
+    }
+    public function userLR()
+    {
+        $user = Auth::user();
+        return User::with('lending')->with('reservation')->where('id','=',$user->id)->get();   
     }
 }

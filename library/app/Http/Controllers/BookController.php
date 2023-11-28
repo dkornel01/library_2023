@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -49,5 +50,21 @@ class BookController extends Controller
     public function bookCopy(){
         //a modelben megírt függvényre hivatkozunk..
         return Book::with('copy')->get();
+    }
+
+    public function publication($book_id)
+    {
+        $copies=DB::table('copies as c')
+        ->select('hardcovered','publication','status')
+        ->join('books as b','c.book_id','=','b.book_id')
+        ->where('b.book_id',$book_id)
+        ->where('publication','>',2000)
+        ->get();
+        return $copies;
+    }
+    public function publication2($book_id)
+    {
+        $copies=DB::select('SELECT * hardcovered ,status,publication From copies c INNER JOIN books b on b.book_id=c book_id WHERE publication>2000 AND b.book_id=$book_id');
+        return $copies;
     }
 }
