@@ -52,6 +52,7 @@ class BookController extends Controller
         return Book::with('copy')->get();
     }
 
+<<<<<<< HEAD
     public function publication($book_id)
     {
         $copies=DB::table('copies as c')
@@ -67,4 +68,36 @@ class BookController extends Controller
         $copies=DB::select('SELECT * hardcovered ,status,publication From copies c INNER JOIN books b on b.book_id=c book_id WHERE publication>2000 AND b.book_id=$book_id');
         return $copies;
     }
+=======
+    //bizonyos book_id-hoz tartozó 2000 után publikált példányok megjelenítése
+    public function publicated($book_id)
+    {
+        $copies = DB::table('copies as c')
+        ->select('hardcovered', 'publication', 'status')
+        ->join('books as b', 'c.book_id','=','b.book_id')
+        ->where('b.book_id', $book_id)
+        ->where('publication', '>', 2000)
+        ->get();
+        return $copies;
+    }
+
+    //bizonyos book_id-hoz tartozó 2000 után publikált példányok száma
+    public function publicatedCount($book_id)
+    {
+        $copies = DB::table('copies as c')
+        ->join('books as b', 'c.book_id','=','b.book_id')
+        ->where('b.book_id', $book_id)
+        ->where('publication', '>', 2000)
+        ->count();
+        return $copies;
+    }
+
+    //bizonyos book_id-hoz tartozó 2000 után publikált példányok megjelenítése - raw
+    public function publicated2($book_id)
+    {
+        return DB::select("SELECT hardcovered, status, publication FROM copies c
+        INNER JOIN books b on b.book_id = c.book_id
+        WHERE publication > 2000 AND b.book_id = $book_id");
+    }
+>>>>>>> 6a9165a445908138911896343ad9dee2860bf814
 }

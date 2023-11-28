@@ -13,6 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lendings', function (Blueprint $table) {
+            $table->primary(['user_id', 'copy_id', 'start']);
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('copy_id')->references('copy_id')->on('copies');
             //mai dátum év megfelelője
@@ -20,7 +21,10 @@ return new class extends Migration
             $table->date('end')->nullable()->default(null);
             $table->boolean('extension')->default(0);
             $table->integer('notice')->default(0);
+<<<<<<< HEAD
             $table->primary(['user_id', 'copy_id', 'start']);
+=======
+>>>>>>> 6a9165a445908138911896343ad9dee2860bf814
             $table->timestamps();
         });
 

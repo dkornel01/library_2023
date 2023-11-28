@@ -44,10 +44,20 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+<<<<<<< HEAD
     public function lending(){
         return $this->hasMany(Lending::class, 'user_id','id');
     }
     public function reservation(){
         return $this->hasMany(Reservation::class, 'user_id','id');
     }
+=======
+    public function lending()
+        //kapcsolat, osztály, ott hogy hívják, itt hogy hívják
+    {    return $this->hasMany(Lending::class, 'user_id', 'id'); }
+
+    public function reservation()
+        //kapcsolat, osztály, ott hogy hívják, itt hogy hívják
+    {    return $this->hasMany(Reservation::class, 'user_id', 'id'); }
+>>>>>>> 6a9165a445908138911896343ad9dee2860bf814
 }

@@ -56,4 +56,18 @@ class CopyController extends Controller
         return $lendings;
     }
 
+    public function moreLendings($copy_id, $db){
+        //bejelentkezett felh azon kölcsönzései a példány kódjával, ahol a példányt legalább 2 $db -szer kikölcsönözte 
+        $user = Auth::user();
+        $lendings = DB::table('lendings as l')
+        ->selectRaw('count(*) as number_of_copies, l.copy_id')
+        //->join('copies as c', 'l.copy_id','=','c.copy_id')
+        ->where('l.user_id', $user->id)
+        ->where('l.copy_id', $copy_id)
+        ->groupBy('l.copy_id')
+        ->having('number_of_copies', '>=', $db)
+        ->get();
+        return $lendings;
+    }
+
 }

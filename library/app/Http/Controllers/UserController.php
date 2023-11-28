@@ -54,9 +54,21 @@ class UserController extends Controller
         $user->permission = $request->permission;
         $user->save();
     }
+<<<<<<< HEAD
     public function userLR()
     {
         $user = Auth::user();
         return User::with('lending')->with('reservation')->where('id','=',$user->id)->get();   
+=======
+
+    public function userLR()
+    {
+        //bejelentkezett felhasználó
+        $user = Auth::user();
+        return User::with('lending')
+        ->with('reservation')
+        ->where('id','=', $user->id)
+        ->get();
+>>>>>>> 6a9165a445908138911896343ad9dee2860bf814
     }
 }

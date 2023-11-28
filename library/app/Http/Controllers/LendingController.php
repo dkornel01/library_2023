@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class LendingController extends Controller
 {
@@ -27,9 +28,9 @@ class LendingController extends Controller
     
     public function update(Request $request, $user_id, $copy_id, $start){
         $lending = Lending::show($user_id, $copy_id, $start);
-        $lending->end = $request->end;
-        $lending->extension=$request->extension;
-        $lending->notice=$request->notice;
+        $lending->user_id = $request->user_id;
+        $lending->copy_id = $request->copy_id;
+        $lending->start = $request->start;
         $lending->save();
     }
     
@@ -38,9 +39,6 @@ class LendingController extends Controller
         $lending->user_id = $request->user_id;
         $lending->copy_id = $request->copy_id;
         $lending->start = $request->start;
-        $lending->end = $request->end;
-        $lending->extension=$request->extension;
-        $lending->notice=$request->notice;
         $lending->save();
         
     }
